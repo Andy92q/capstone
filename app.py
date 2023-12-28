@@ -18,8 +18,8 @@ def getTable(classNum):
 
 def readName(classNum):
     f = open("./classes/class"+classNum+".txt", "r")
-    line = f.readlines()
-    return line
+    name = [line.strip()+"\n" for line in f.readlines() if line.strip()]
+    return name
 
 def refresh(label,window,newText):
     label.config(text=newText)
@@ -64,6 +64,8 @@ def recordValidCombo(classNum, validCombo):
 
 def saveFile(fileName,theWidget):
     content = theWidget.get("1.0",tk.END) # from (0,0) --> (line 10000,char10000)
+    name = [line.strip()+"\n" for line in content.splitlines() if line.strip()]
+    content = ''.join(name)
     f = open(fileName, "w")
     f.write(content)
 
@@ -138,6 +140,7 @@ def openList(classNum): #open studentlist 2-x
         bg = "skyblue",
         bd = 2,
         relief=tk.SOLID,
+
         #font = myfont
     )
 

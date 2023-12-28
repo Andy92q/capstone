@@ -44,3 +44,8 @@ pairing.record(pair,table)
 print(table)
 
 
+num = ["hello"+"\n" for i in range (10)]
+# str ---> list (split by \n)
+message = "hello i am jayme\n i am not andy \n i am not johnson"
+messageList = message.splitlines()
+print(messageList)
