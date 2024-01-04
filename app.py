@@ -8,9 +8,9 @@ win.configure(bg = "white")
 win.title("Classes")
 win.geometry("800x800")
 
-def getTable(classNum):
+def getTable(classNum, placement):
     databaseNum = classNum[-1]
-    f = open("./databases/database"+databaseNum+".txt", "r")
+    f = open("./databases/"+placement+databaseNum+".txt", "r")
     line = f.readline()
     table = json.loads(line)
     f.close()
@@ -34,12 +34,14 @@ def producePair(classNum): #random pair
     numPeople = len(nameList)
 
     comb = pairing.pairNow(numPeople) # comb = [[4,1],[7,10]....]
-    while(pairing.isValid(comb,getTable(classNum)) == False):
+    while(pairing.isValid(comb,getTable(classNum,"database")) == False or pairing.isValid(comb,getTable(classNum,"middle")) == False):
         comb = pairing.pairNow(numPeople)
         print("try again")
     for i in range (len(comb)):
         out += nameList[comb[i][0]]+"-"+nameList[comb[i][1]]+"\n"
-    recordValidCombo(classNum, comb)
+    
+    recordValidCombo(classNum,comb,"middle")
+
     return out
 
 def checkValid(classNum, combo):
@@ -48,19 +50,21 @@ def checkValid(classNum, combo):
     if pairing.isValid(combo,pairing.inTable(size)) == True:
         return True
     return False
-
-def recordValidCombo(classNum, validCombo):
+#placement = middle,database
+def recordValidCombo(classNum, validCombo,placement):
     databaseNum = classNum[-1]
-    f = open("./databases/database"+databaseNum+".txt", "r")
+    f = open("./databases/"+placement+databaseNum+".txt", "r")
     line = f.readline()
     arrBegin = json.loads(line)
     todayRecord = pairing.record(validCombo,arrBegin)
     arrEnd = json.dumps(todayRecord)
-    g = open("./databases/database"+databaseNum+".txt", "w")
+    g = open("./databases/"+placement+databaseNum+".txt", "w")
     g.write(arrEnd)
     f.close()
     g.close()
 
+# def confirm(classNum, validCombo):
+    # recordValidCombo(classNum,validCombo)
 
 def saveFile(fileName,theWidget):
     content = theWidget.get("1.0",tk.END) # from (0,0) --> (line 10000,char10000)
@@ -88,6 +92,12 @@ def openClass(classNum): #Open class 2-x
     winClass.geometry("600x850")
     winClass.title("class"+ classNum)
 
+
+    numPeople = len(readName(classNum))
+    ini = initial.inTable(numPeople)
+    f = open("./databases/middle"+classNum[-1]+".txt", "w")
+    f.write(json.dumps(ini))
+    f.close()
     
     openListButton = tk.Button(
         winClass,
@@ -109,6 +119,14 @@ def openClass(classNum): #Open class 2-x
         width = 3,
     )
 
+    # confirmButton = tk.Button(
+    #     winClass,
+    #     text = "confirm",
+    #     command = lambda:confirm(classNum),
+    #     height = 2,
+    #     width = 3,
+    # )
+
     pairText = tk.Label(
         winClass,
         height = 40,
@@ -122,6 +140,7 @@ def openClass(classNum): #Open class 2-x
     pairText.pack()
     refreshButton.pack()
     resetButton.pack()
+    # confirmButton.pack()
 
 def openList(classNum): #open studentlist 2-x
     winList = tk.Tk()

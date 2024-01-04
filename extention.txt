@@ -1,1 +1,4 @@
 1. class button window only open once 
+git add .
+git commit -m "message"
+git push
