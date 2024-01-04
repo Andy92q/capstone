@@ -123,9 +123,6 @@ def openClass(classNum): #Open class 2-x
     refreshButton.pack()
     resetButton.pack()
 
-#问题：空的行会影响操作
-#解决思路：function
-#解决方式：继续睡觉
 def openList(classNum): #open studentlist 2-x
     winList = tk.Tk()
     winList.geometry("400x650")
