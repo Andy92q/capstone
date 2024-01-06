@@ -36,12 +36,12 @@ table = [[True, True, False, False, True, True], [True, True, True, True, False,
 print(table)
 pair = pairing.pairNow(6)
 
-while (isValid(pair,table) == False):
-    pair = pairing.pairNow(6)
-print(pair)
-print(isValid(pair, table))
-pairing.record(pair,table)
-print(table)
+# while (isValid(pair,table) == False):
+#     pair = pairing.pairNow(6)
+# print(pair)
+# print(isValid(pair, table))
+# pairing.record(pair,table)
+# print(table)
 
 
 num = ["hello"+"\n" for i in range (10)]
@@ -49,3 +49,17 @@ num = ["hello"+"\n" for i in range (10)]
 message = "hello i am jayme\n i am not andy \n i am not johnson"
 messageList = message.splitlines()
 print(messageList)
+
+def recordFinalPair(classNum,validCombo,placement):
+    databaseNum = classNum[-1]
+    f = open("./databases/"+placement+databaseNum+".txt", "r")
+    line = f.readline()
+    arrBegin = json.loads(line)
+    print(arrBegin)
+    
+
+
+f = open("./databases/"+"database1"+".txt", "r")
+line = f.readline()
+arrBegin = json.loads(line)
+print(type(arrBegin))

@@ -50,6 +50,7 @@ def checkValid(classNum, combo):
     if pairing.isValid(combo,pairing.inTable(size)) == True:
         return True
     return False
+
 #placement = middle,database
 def recordValidCombo(classNum, validCombo,placement):
     databaseNum = classNum[-1]
@@ -81,7 +82,39 @@ def reset(classNum):
     f.write(json.dumps(ini))
     f.close()
 
+def recordFinalPair(classNum): #Record middle to database without repeat
+    databaseNum = classNum[-1]
+    middleTable = getTable(classNum, "middle")
+    databaseTable = getTable(classNum, "database")
+    k=0
+    for i in range(len(middleTable)):
+        for j in range(len(middleTable)):
+            if (middleTable[i][j] == True and databaseTable[i][j] == False):     
+                databaseTable[i][j] = middleTable[i][j]
 
+    f = open("./databases/database"+databaseNum+".txt", "w")
+    f.write(json.dumps(databaseTable))
+    f.close()
+    
+    # databaseNum = classNum[-1]
+    # f = open("./databases/"+"middle"+databaseNum+".txt", "r")
+    # g = open("./databases/"+"database"+databaseNum+".txt", "r")
+    # firstLine = f.readline()
+    # finalLine = g.readline()
+    # arrBegin = json.loads(firstLine)
+    # arrFinal = json.loads(finalLine)
+    # for i in range (len(arrBegin)):
+    #     for j in range (len(arrBegin)):
+    #         if (arrBegin[i][j] == True): 
+    #             arrFinal[i][j] == True
+    # f.close()
+    # g.close()
+    # h = open("./databases/"+"database"+databaseNum+".txt", "w")
+    # h.write(json.dumps(arrFinal))
+    # h.close()
+
+    
+                
 
 
 
@@ -113,10 +146,18 @@ def openClass(classNum): #Open class 2-x
 
     resetButton = tk.Button(
         winClass,
-        text = "reset",
+        text = "reset database",
         command = lambda:[reset(classNum),pairText.config(text="")],
         height = 2,
         width = 3,
+    )
+
+    recordButton = tk.Button(
+        winClass,
+        text = "record today",
+        command = lambda:recordFinalPair(classNum),
+        height = 2,
+        width = 3
     )
 
     # confirmButton = tk.Button(
@@ -140,6 +181,7 @@ def openClass(classNum): #Open class 2-x
     pairText.pack()
     refreshButton.pack()
     resetButton.pack()
+    recordButton.pack()
     # confirmButton.pack()
 
 def openList(classNum): #open studentlist 2-x
