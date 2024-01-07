@@ -25,6 +25,13 @@ def refresh(label,window,newText):
     label.config(text=newText)
     window.update_idletasks()
 
+def newSet(classNum):
+    numPeople = len(readName(classNum))
+    ini = initial.inTable(numPeople)
+    f = open("./databases/middle"+classNum[-1]+".txt", "w")
+    f.write(json.dumps(ini))
+    f.close()
+
 #问题：当使用pairing的次数到达一定数量会开始有重复的pair
 #解决思路：需要一个function告诉你再pair的话会有重复
 #解决方式：睡觉 梦里啥都有
@@ -114,7 +121,7 @@ def recordFinalPair(classNum): #Record middle to database without repeat
     # h.close()
 
     
-                
+              
 
 
 
@@ -125,12 +132,6 @@ def openClass(classNum): #Open class 2-x
     winClass.geometry("600x850")
     winClass.title("class"+ classNum)
 
-
-    numPeople = len(readName(classNum))
-    ini = initial.inTable(numPeople)
-    f = open("./databases/middle"+classNum[-1]+".txt", "w")
-    f.write(json.dumps(ini))
-    f.close()
     
     openListButton = tk.Button(
         winClass,
@@ -160,6 +161,14 @@ def openClass(classNum): #Open class 2-x
         width = 3
     )
 
+    newSetButton = tk.Button(
+        winClass,
+        text = "new set",
+        command = lambda:newSet(classNum),
+        height = 2,
+        width = 3
+    )
+
     # confirmButton = tk.Button(
     #     winClass,
     #     text = "confirm",
@@ -182,6 +191,7 @@ def openClass(classNum): #Open class 2-x
     refreshButton.pack()
     resetButton.pack()
     recordButton.pack()
+    newSetButton.pack()
     # confirmButton.pack()
 
 def openList(classNum): #open studentlist 2-x
