@@ -9,3 +9,6 @@ def inTable(size):
 f = open("database.txt", "w")
 f.write(json.dumps(inTable(6)))
 f.close()
+g = open("middle.txt", "w")
+g.write(json.dumps(inTable(6)))
+g.close()

@@ -2,6 +2,7 @@ import tkinter as tk
 import pairing
 import initial
 import json
+import pandas as pd
 
 win = tk.Tk()
 win.configure(bg = "white")
@@ -98,6 +99,8 @@ def recordFinalPair(classNum): #Record middle to database without repeat
         for j in range(len(middleTable)):
             if (middleTable[i][j] == True and databaseTable[i][j] == False):     
                 databaseTable[i][j] = middleTable[i][j]
+            elif(middleTable[i][j] == True and databaseTable[i][j] == True): #change: if already paired before
+                databaseTable[i][j] = middleTable[i][j]
 
     f = open("./databases/database"+databaseNum+".txt", "w")
     f.write(json.dumps(databaseTable))
@@ -121,7 +124,10 @@ def recordFinalPair(classNum): #Record middle to database without repeat
     # h.close()
 
     
-              
+def midToExcel(classNum):
+    array = getTable(classNum, "middle")
+    df = pd.DataFrame(array).T
+    df.to_excel(excel_writer = "test.xlsx")
 
 
 
@@ -142,7 +148,9 @@ def openClass(classNum): #Open class 2-x
     refreshButton = tk.Button(
         winClass,
         text = "New Pair",
-        command =lambda:refresh(pairText, winClass, producePair(classNum))
+        command =lambda:refresh(pairText, winClass, producePair(classNum)),
+        height = 2,
+        width = 6,
     )
 
     resetButton = tk.Button(
@@ -150,7 +158,7 @@ def openClass(classNum): #Open class 2-x
         text = "reset database",
         command = lambda:[reset(classNum),pairText.config(text="")],
         height = 2,
-        width = 3,
+        width = 6,
     )
 
     recordButton = tk.Button(
@@ -158,7 +166,7 @@ def openClass(classNum): #Open class 2-x
         text = "record today",
         command = lambda:recordFinalPair(classNum),
         height = 2,
-        width = 3
+        width = 6
     )
 
     newSetButton = tk.Button(
@@ -166,7 +174,7 @@ def openClass(classNum): #Open class 2-x
         text = "new set",
         command = lambda:newSet(classNum),
         height = 2,
-        width = 3
+        width = 6
     )
 
     # confirmButton = tk.Button(

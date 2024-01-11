@@ -1,4 +1,7 @@
-1. class button window only open once 
 git add .
 git commit -m "message"
 git push
+
+1. 可调整人数（+老师） +1, -1
+2. 可视化
+3. 整理代码
