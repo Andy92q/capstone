@@ -69,14 +69,14 @@ import platform
 
 
 # to excel
-f = open("middle.txt", "r")
-line = f.readline()
-table = json.loads(line)
-f.close()
-array = table
-print(table)
-df = pd.DataFrame(array).T
-df.to_excel(excel_writer = "test.xlsx")
+# f = open("middle.txt", "r")
+# line = f.readline()
+# table = json.loads(line)
+# f.close()
+# array = table
+# print(table)
+# df = pd.DataFrame(array).T
+# df.to_excel(excel_writer = "test.xlsx")
 
 # Specify the path to your Excel file
 excel_file_path = 'test.xlsx'
