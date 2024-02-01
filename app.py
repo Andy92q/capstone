@@ -9,6 +9,7 @@ win.configure(bg = "white")
 win.title("Classes")
 win.geometry("800x800")
 
+#
 def getTable(classNum, placement):
     databaseNum = classNum[-1]
     f = open("./databases/"+placement+databaseNum+".txt", "r")
@@ -272,13 +273,6 @@ b1.place(x=200, y=200)
 b2.place(x=600, y=200)
 b3.place(x=200, y=600)
 b4.place(x=600, y=600)
-
-
-
-
-
-
-
 
 
 
