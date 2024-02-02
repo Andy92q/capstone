@@ -3,13 +3,15 @@ import pairing
 import initial
 import json
 import pandas as pd
+import openEx
+
 
 win = tk.Tk()
 win.configure(bg = "white")
 win.title("Classes")
 win.geometry("800x800")
 
-#
+
 def getTable(classNum, placement):
     databaseNum = classNum[-1]
     f = open("./databases/"+placement+databaseNum+".txt", "r")
@@ -34,23 +36,20 @@ def newSet(classNum):
     f.write(json.dumps(ini))
     f.close()
 
-#问题：当使用pairing的次数到达一定数量会开始有重复的pair
-#解决思路：需要一个function告诉你再pair的话会有重复
-#解决方式：睡觉 梦里啥都有
+
+
+
 def producePair(classNum): #random pair
     nameList = readName(classNum)
     out = ""
     numPeople = len(nameList)
-
     comb = pairing.pairNow(numPeople) # comb = [[4,1],[7,10]....]
     while(pairing.isValid(comb,getTable(classNum,"database")) == False or pairing.isValid(comb,getTable(classNum,"middle")) == False):
         comb = pairing.pairNow(numPeople)
         print("try again")
     for i in range (len(comb)):
-        out += nameList[comb[i][0]]+"-"+nameList[comb[i][1]]+"\n"
-    
+        out += nameList[comb[i][0]]+"-"+nameList[comb[i][1]]+"\n"  
     recordValidCombo(classNum,comb,"middle")
-
     return out
 
 def checkValid(classNum, combo):
@@ -72,9 +71,6 @@ def recordValidCombo(classNum, validCombo,placement):
     g.write(arrEnd)
     f.close()
     g.close()
-
-# def confirm(classNum, validCombo):
-    # recordValidCombo(classNum,validCombo)
 
 def saveFile(fileName,theWidget):
     content = theWidget.get("1.0",tk.END) # from (0,0) --> (line 10000,char10000)
@@ -106,34 +102,64 @@ def recordFinalPair(classNum): #Record middle to database without repeat
     f = open("./databases/database"+databaseNum+".txt", "w")
     f.write(json.dumps(databaseTable))
     f.close()
-    
-    # databaseNum = classNum[-1]
-    # f = open("./databases/"+"middle"+databaseNum+".txt", "r")
-    # g = open("./databases/"+"database"+databaseNum+".txt", "r")
-    # firstLine = f.readline()
-    # finalLine = g.readline()
-    # arrBegin = json.loads(firstLine)
-    # arrFinal = json.loads(finalLine)
-    # for i in range (len(arrBegin)):
-    #     for j in range (len(arrBegin)):
-    #         if (arrBegin[i][j] == True): 
-    #             arrFinal[i][j] == True
-    # f.close()
-    # g.close()
-    # h = open("./databases/"+"database"+databaseNum+".txt", "w")
-    # h.write(json.dumps(arrFinal))
-    # h.close()
-
+  
     
 def midToExcel(classNum):
     array = getTable(classNum, "middle")
     df = pd.DataFrame(array).T
     df.to_excel(excel_writer = "test.xlsx")
 
+def readCount(classNum):
+    databaseNum = classNum[-1]
+    with open("./databases/refreshCount.json",'r') as f:
+        data=json.load(f)
+    return data[databaseNum]
+
+#Excel Functions
+
+def readEx(classNum):
+    numPeople = len(readName(classNum))
+    excel_file = "./excel/"+classNum+".xlsx"
+    skip_cols=[0]#Skip column A
+    keep_cols = [i for i in range(numPeople+1) if i not in skip_cols]
+    df = pd.read_excel(excel_file, skiprows=0, usecols=keep_cols)
+    finalArray = [row.tolist() for _, row in df.iterrows()]
+    return finalArray
+
+# display name to row 1 and colA (reade classes2-<#>.txt)
+def toExcel(classNum,placement): #跟middle相关的button连接
+    databaseNum=classNum[-1]
+    f = open("./classes/class"+classNum+".txt", "r")
+    stuName = [line.strip() for line in f.readlines() if line.strip()]
+    f.close()
+    g = open("./databases/"+placement+databaseNum+".txt", "r")    
+    line = g.readline()
+    table = json.loads(line)
+    print(table)
+    g.close()
+
+    data=table
+    df = pd.DataFrame(data, index=stuName, columns=stuName)
+    print(df)
+    excel_file = "./excel/"+classNum+".xlsx"
+    df.to_excel(excel_file, index=True)
+
+    # Display the path to the saved Excel file
+    print(f"DataFrame saved to {excel_file}")
+    # fill true/false from middle.txt
+
+
+def ExcelToMiddle(classNum,placement):
+    databaseNum=classNum[-1]
+    modified_array=readEx(classNum)
+    # Overwrite the middle.txt file with the updated array
+    with open("./databases/"+placement+databaseNum+".txt", "w") as f:
+        json.dump(modified_array, f)
 
 
 
 
+#Window Functions
 def openClass(classNum): #Open class 2-x
     winClass = tk.Tk()
     winClass.geometry("600x850")
@@ -149,7 +175,7 @@ def openClass(classNum): #Open class 2-x
     refreshButton = tk.Button(
         winClass,
         text = "New Pair",
-        command =lambda:refresh(pairText, winClass, producePair(classNum)),
+        command =lambda:[refresh(pairText, winClass, producePair(classNum)),toExcel(classNum,"middle")],
         height = 2,
         width = 6,
     )
@@ -162,10 +188,11 @@ def openClass(classNum): #Open class 2-x
         width = 6,
     )
 
+    #record excel to middle and database
     recordButton = tk.Button(
         winClass,
         text = "record today",
-        command = lambda:recordFinalPair(classNum),
+        command = lambda:[ExcelToMiddle(classNum,"middle"),recordFinalPair(classNum)],
         height = 2,
         width = 6
     )
@@ -173,27 +200,32 @@ def openClass(classNum): #Open class 2-x
     newSetButton = tk.Button(
         winClass,
         text = "new set",
-        command = lambda:newSet(classNum),
+        command = lambda:[newSet(classNum),toExcel(classNum,"middle")],
         height = 2,
         width = 6
     )
-
-    # confirmButton = tk.Button(
-    #     winClass,
-    #     text = "confirm",
-    #     command = lambda:confirm(classNum),
-    #     height = 2,
-    #     width = 3,
-    # )
 
     pairText = tk.Label(
         winClass,
         height = 40,
         width = 30,
         relief = tk.SOLID,
-        #text = producePair(classNum)
     )
     
+    refreshText = tk.Label(
+        winClass,
+        height = 3,
+        width = 2,       
+        text = readCount(classNum)
+    )
+
+    # excelOpen = tk.Button(
+    #     winClass,
+    #     text = "openExcel",
+    #     command = lambda:openEx.openExcel(classNum),
+    #     height = 3,
+    #     width = 2
+    # )
 
     openListButton.pack()
     pairText.pack()
@@ -201,7 +233,11 @@ def openClass(classNum): #Open class 2-x
     resetButton.pack()
     recordButton.pack()
     newSetButton.pack()
-    # confirmButton.pack()
+    refreshText.pack()
+    refreshText.place(x=0, y=0)
+
+
+
 
 def openList(classNum): #open studentlist 2-x
     winList = tk.Tk()
@@ -273,8 +309,6 @@ b1.place(x=200, y=200)
 b2.place(x=600, y=200)
 b3.place(x=200, y=600)
 b4.place(x=600, y=600)
-
-
 
 
 

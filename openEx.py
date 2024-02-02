@@ -38,6 +38,7 @@ def show_excel(file_path):
     root.mainloop()
 
 # Example usage
-excel_file_path = 'excel123.xlsx'
-show_excel(excel_file_path)
+def openExcel(classNum):
+    excelFile = "./excel/"+classNum+".xlsx"
+    show_excel(excelFile)
 
