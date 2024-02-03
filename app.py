@@ -1,8 +1,12 @@
 import tkinter as tk
-import pairing
-import initial
 import json
 import pandas as pd
+
+#extra classes
+import pairing
+import initial
+import openEx
+
 
 
 win = tk.Tk()
@@ -28,7 +32,8 @@ def refresh(label,window,newText):
     label.config(text=newText)
     window.update_idletasks()
 
-def newSet(classNum):
+def newSet(classNum): #reset database
+    
     numPeople = len(readName(classNum))
     ini = initial.inTable(numPeople)
     f = open("./databases/middle"+classNum[-1]+".txt", "w")
@@ -38,18 +43,26 @@ def newSet(classNum):
 
 
 
+
+
 def producePair(classNum): #random pair
     nameList = readName(classNum)
+
     out = ""
     numPeople = len(nameList)
     comb = pairing.pairNow(numPeople) # comb = [[4,1],[7,10]....]
+    print(len(comb))
+    changeCount(classNum)
     while(pairing.isValid(comb,getTable(classNum,"database")) == False or pairing.isValid(comb,getTable(classNum,"middle")) == False):
         comb = pairing.pairNow(numPeople)
         print("try again")
+  
     for i in range (len(comb)):
-        out = nameList[comb[i][0]].strip()+"-"+nameList[comb[i][1]].strip() #remove extra lines
+        k = nameList[comb[i][0]].strip()+"-"+nameList[comb[i][1]].strip() #remove extra lines
+        out+=k+"\n"
 
     recordValidCombo(classNum,comb,"middle")
+    
     return out
 
 def checkValid(classNum, combo):
@@ -80,18 +93,27 @@ def saveFile(fileName,theWidget):
     f.write(content)
 
 def reset(classNum):
+    
     size = len(readName(classNum))
+    print(size)
     databaseNum = classNum[-1]
     ini = initial.inTable(size)
     f = open("./databases/database"+databaseNum+".txt", "w")
     f.write(json.dumps(ini))
     f.close()
 
+    with open("./databases/refreshCount.json",'r') as f:
+        data=json.load(f)
+        data[databaseNum] = size-1
+
+    with open("./databases/refreshCount.json",'w') as g:  
+        json.dump(data,g)
+    return data[databaseNum]
+
 def recordFinalPair(classNum): #Record middle to database without repeat
     databaseNum = classNum[-1]
     middleTable = getTable(classNum, "middle")
     databaseTable = getTable(classNum, "database")
-    k=0
     for i in range(len(middleTable)):
         for j in range(len(middleTable)):
             if (middleTable[i][j] == True and databaseTable[i][j] == False):     
@@ -104,19 +126,47 @@ def recordFinalPair(classNum): #Record middle to database without repeat
     f.close()
   
     
-def midToExcel(classNum):
-    array = getTable(classNum, "middle")
-    df = pd.DataFrame(array).T
-    df.to_excel(excel_writer = "test.xlsx")
 
-def readCount(classNum):
+def readCount(classNum): #read how many turns until refresh
     databaseNum = classNum[-1]
     with open("./databases/refreshCount.json",'r') as f:
         data=json.load(f)
     return data[databaseNum]
 
-#Excel Functions
+def changeCount(classNum): #countdown the turns
+    databaseNum = classNum[-1]
+    
+    if checkAllPaired(classNum) == True or readCount(classNum) == 0:
+        reset(classNum)
+        newSet(classNum)
+        num = reset(classNum)-1
+    else:
+        num = readCount(classNum)-1
 
+    with open("./databases/refreshCount.json",'r') as f:
+        data=json.load(f)
+        data[databaseNum] = num
+    with open("./databases/refreshCount.json",'w') as g:  
+        json.dump(data,g)
+    
+    return num
+    
+    
+def checkAllPaired(classNum): #check if certain person has been paired for everyone
+    numPeople = len(readName(classNum))
+    count = 0
+    for i in range (numPeople):
+        for j in range (numPeople):
+            if (getTable(classNum,"database")[i][j] == True or getTable(classNum,"middle")[i][j] == True):
+                count+=1
+                print(i)
+                print(j)
+        if count == numPeople: return True
+        count = 0  
+    return False
+
+
+#Excel Functions
 def readEx(classNum):
     numPeople = len(readName(classNum))
     excel_file = "./excel/"+classNum+".xlsx"
@@ -175,7 +225,11 @@ def openClass(classNum): #Open class 2-x
     pairButton = tk.Button(
         winClass,
         text = "New Pair",
-        command =lambda:[refresh(pairText, winClass, producePair(classNum)),toExcel(classNum,"middle")],
+        command =lambda:[
+            refresh(pairText, winClass, producePair(classNum)),
+            toExcel(classNum,"middle"),   
+            resetDatabase.config(text = readCount(classNum))        
+        ],
         height = 3,
         width = 7,
     )
@@ -183,7 +237,10 @@ def openClass(classNum): #Open class 2-x
     resetButton = tk.Button(
         winClass,
         text = "Reset\nMainDrive",
-        command = lambda:[reset(classNum),pairText.config(text="")],
+        command = lambda:[
+            reset(classNum),
+            pairText.config(text=""),
+            resetDatabase.config(text=reset(classNum))],
         height = 3,
         width = 7,
     )
@@ -205,6 +262,14 @@ def openClass(classNum): #Open class 2-x
         width = 7
     )
 
+    openExcelButton = tk.Button(
+        winClass,
+        text = "Open Excel",
+        command = lambda:openEx.openExcelFile(classNum),
+        height = 3,
+        width = 7    
+    )
+
     pairText = tk.Label(
         winClass,
         height = 40,
@@ -212,7 +277,7 @@ def openClass(classNum): #Open class 2-x
         relief = tk.SOLID,
     )
     
-    refreshText = tk.Label(
+    resetDatabase = tk.Label(
         winClass,
         height = 3,
         width = 10,   
@@ -220,18 +285,11 @@ def openClass(classNum): #Open class 2-x
         text = readCount(classNum)
     )
 
-    # excelOpen = tk.Button(
-    #     winClass,
-    #     text = "openExcel",
-    #     command = lambda:openEx.openExcel(classNum),
-    #     height = 3,
-    #     width = 2
-    # )
 
     openListButton.pack()
-    
-    
+     
     pairText.pack()
+
     pairButton.pack()
     pairButton.place(x=250,y=700)
 
@@ -244,8 +302,11 @@ def openClass(classNum): #Open class 2-x
     resetButton.pack()
     resetButton.place(x=70,y=775)
 
-    refreshText.pack()
-    refreshText.place(x=300,y=805,anchor="center")
+    resetDatabase.pack()
+    resetDatabase.place(x=300,y=805,anchor="center")
+
+    openExcelButton.pack()
+    openExcelButton.place(x=430, y=775)
     
 
 

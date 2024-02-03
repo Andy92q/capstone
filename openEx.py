@@ -1,47 +1,28 @@
-import tkinter as tk
-from openpyxl import load_workbook
-from tkinter import ttk
-
-def show_excel(file_path):
-    # Load the Excel workbook
-    workbook = load_workbook(file_path)
-    
-    # Get the active sheet
-    sheet = workbook.active
-    
-    # Create a Tkinter window
-    root = tk.Tk()
-    root.title("Excel Viewer")
-
-    # Create a Treeview widget to display the Excel data
-    tree = ttk.Treeview(root)
-
-    # Add columns to the Treeview
-    for col in sheet.iter_cols(1, sheet.max_column):
-        tree.heading(col[0].column, text=col[0].value)
-        tree.column(col[0].column, width=100)
-
-    # Add rows to the Treeview
-    for row in sheet.iter_rows(min_row=2):
-        values = [cell.value for cell in row]
-        tree.insert('', 'end', values=values)
-
-    # Add a vertical scrollbar
-    scrollbar = ttk.Scrollbar(root, orient='vertical', command=tree.yview)
-    tree.configure(yscroll=scrollbar.set)
-
-    # Pack the Treeview and Scrollbar
-    tree.pack(side='left', fill='both', expand=True)
-    scrollbar.pack(side='right', fill='y')
-
-    # Run the Tkinter main loop
-    root.mainloop()
+import pandas as pd
+import os
+import platform
 
 
-show_excel("test")
-# Example usage
-def openExcel(classNum):
-    excelFile = "./excel/"+classNum+".xlsx"
-    show_excel(excelFile)
+def openExcelFile(classNum):
+    # Specify the path to your Excel file
+    excel_file = "./excel/"+classNum+".xlsx"
 
-openExcel("2-2")
+    # Use pandas to read the Excel file
+    dp = pd.read_excel(excel_file)
+
+    # Display the DataFrame (optional)
+    print(dp)
+
+    # Open the Excel file in the default application
+    system_name = platform.system().lower()
+
+    if system_name == 'darwin':  # macOS
+        os.system(f'open "{excel_file}"')
+    elif system_name == 'linux':  # Linux
+        # Try xdg-open first, then gnome-open
+        os.system(f'xdg-open "{excel_file}"') or os.system(f'gnome-open "{excel_file}"')
+    elif system_name == 'windows':
+        # On Windows, the original start command should work
+        os.system(f'start excel "{excel_file}"')
+    else:
+        print(f"Unsupported operating system: {system_name}")
