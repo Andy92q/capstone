@@ -37,8 +37,11 @@ def show_excel(file_path):
     # Run the Tkinter main loop
     root.mainloop()
 
+
+show_excel("test")
 # Example usage
 def openExcel(classNum):
     excelFile = "./excel/"+classNum+".xlsx"
     show_excel(excelFile)
 
+openExcel("2-2")

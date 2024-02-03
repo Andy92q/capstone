@@ -3,7 +3,6 @@ import pairing
 import initial
 import json
 import pandas as pd
-import openEx
 
 
 win = tk.Tk()
@@ -48,7 +47,8 @@ def producePair(classNum): #random pair
         comb = pairing.pairNow(numPeople)
         print("try again")
     for i in range (len(comb)):
-        out += nameList[comb[i][0]]+"-"+nameList[comb[i][1]]+"\n"  
+        out = nameList[comb[i][0]].strip()+"-"+nameList[comb[i][1]].strip() #remove extra lines
+
     recordValidCombo(classNum,comb,"middle")
     return out
 
@@ -172,50 +172,51 @@ def openClass(classNum): #Open class 2-x
         command = lambda:openList(classNum)
         )
     
-    refreshButton = tk.Button(
+    pairButton = tk.Button(
         winClass,
         text = "New Pair",
         command =lambda:[refresh(pairText, winClass, producePair(classNum)),toExcel(classNum,"middle")],
-        height = 2,
-        width = 6,
+        height = 3,
+        width = 7,
     )
 
     resetButton = tk.Button(
         winClass,
-        text = "reset database",
+        text = "Reset\nMainDrive",
         command = lambda:[reset(classNum),pairText.config(text="")],
-        height = 2,
-        width = 6,
+        height = 3,
+        width = 7,
     )
 
     #record excel to middle and database
     recordButton = tk.Button(
         winClass,
-        text = "record today",
+        text = "Record\nCurrent",
         command = lambda:[ExcelToMiddle(classNum,"middle"),recordFinalPair(classNum)],
-        height = 2,
-        width = 6
+        height = 3,
+        width = 7
     )
 
     newSetButton = tk.Button(
         winClass,
-        text = "new set",
+        text = "New Set",
         command = lambda:[newSet(classNum),toExcel(classNum,"middle")],
-        height = 2,
-        width = 6
+        height = 3,
+        width = 7
     )
 
     pairText = tk.Label(
         winClass,
         height = 40,
-        width = 30,
+        width = 50,
         relief = tk.SOLID,
     )
     
     refreshText = tk.Label(
         winClass,
         height = 3,
-        width = 2,       
+        width = 10,   
+        relief = tk.SOLID,    
         text = readCount(classNum)
     )
 
@@ -228,13 +229,25 @@ def openClass(classNum): #Open class 2-x
     # )
 
     openListButton.pack()
+    
+    
     pairText.pack()
-    refreshButton.pack()
-    resetButton.pack()
+    pairButton.pack()
+    pairButton.place(x=250,y=700)
+
     recordButton.pack()
+    recordButton.place(x=430,y=700)
+
     newSetButton.pack()
+    newSetButton.place(x=70,y=700)
+
+    resetButton.pack()
+    resetButton.place(x=70,y=775)
+
     refreshText.pack()
-    refreshText.place(x=0, y=0)
+    refreshText.place(x=300,y=805,anchor="center")
+    
+
 
 
 
