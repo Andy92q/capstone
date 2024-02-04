@@ -85,7 +85,7 @@ excel_file_path = 'test.xlsx'
 dp = pd.read_excel(excel_file_path)
 
 # Display the DataFrame (optional)
-print(dp)
+#print(dp)
 
 # Open the Excel file in the default application
 system_name = platform.system().lower()
@@ -100,3 +100,14 @@ elif system_name == 'windows':
     os.system(f'start excel "{excel_file_path}"')
 else:
     print(f"Unsupported operating system: {system_name}")
+
+import xlwings as xw
+
+def save_data_to_file():
+    # Your code to save data to a file
+    # For example:
+    wb = xw.Book.caller()
+    wb.save("test.xlsx")
+    print(wb)
+
+save_data_to_file()

@@ -1,5 +1,5 @@
 git add .
-git commit -m "2024/02/02/V2"
+git commit -m "message"
 git push
 
 1. 可调整人数（+老师） +1, -1
@@ -8,3 +8,4 @@ git push
 
 
 Pair-->Middle-->Excel-->Middle-->database
+2024/02/03 - do not spam click or it will crash the system

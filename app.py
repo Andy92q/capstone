@@ -32,8 +32,7 @@ def refresh(label,window,newText):
     label.config(text=newText)
     window.update_idletasks()
 
-def newSet(classNum): #reset database
-    
+def newSet(classNum): #reset database    
     numPeople = len(readName(classNum))
     ini = initial.inTable(numPeople)
     f = open("./databases/middle"+classNum[-1]+".txt", "w")
@@ -47,16 +46,14 @@ def newSet(classNum): #reset database
 
 def producePair(classNum): #random pair
     nameList = readName(classNum)
-
     out = ""
     numPeople = len(nameList)
     comb = pairing.pairNow(numPeople) # comb = [[4,1],[7,10]....]
-    print(len(comb))
+
     changeCount(classNum)
     while(pairing.isValid(comb,getTable(classNum,"database")) == False or pairing.isValid(comb,getTable(classNum,"middle")) == False):
         comb = pairing.pairNow(numPeople)
-        print("try again")
-  
+        print("try again")  
     for i in range (len(comb)):
         k = nameList[comb[i][0]].strip()+"-"+nameList[comb[i][1]].strip() #remove extra lines
         out+=k+"\n"
@@ -85,6 +82,7 @@ def recordValidCombo(classNum, validCombo,placement):
     f.close()
     g.close()
 
+
 def saveFile(fileName,theWidget):
     content = theWidget.get("1.0",tk.END) # from (0,0) --> (line 10000,char10000)
     name = [line.strip()+"\n" for line in content.splitlines() if line.strip()]
@@ -92,10 +90,8 @@ def saveFile(fileName,theWidget):
     f = open(fileName, "w")
     f.write(content)
 
-def reset(classNum):
-    
+def reset(classNum):    
     size = len(readName(classNum))
-    print(size)
     databaseNum = classNum[-1]
     ini = initial.inTable(size)
     f = open("./databases/database"+databaseNum+".txt", "w")
@@ -105,7 +101,6 @@ def reset(classNum):
     with open("./databases/refreshCount.json",'r') as f:
         data=json.load(f)
         data[databaseNum] = size-1
-
     with open("./databases/refreshCount.json",'w') as g:  
         json.dump(data,g)
     return data[databaseNum]
@@ -159,8 +154,6 @@ def checkAllPaired(classNum): #check if certain person has been paired for every
         for j in range (numPeople):
             if (getTable(classNum,"database")[i][j] == True or getTable(classNum,"middle")[i][j] == True):
                 count+=1
-                print(i)
-                print(j)
         if count == numPeople: return True
         count = 0  
     return False
@@ -219,7 +212,9 @@ def openClass(classNum): #Open class 2-x
     openListButton = tk.Button(
         winClass,
         text = "classList",
-        command = lambda:openList(classNum)
+        command = lambda:openList(classNum),
+        height = 3,
+        width = 7
         )
     
     pairButton = tk.Button(
@@ -270,9 +265,17 @@ def openClass(classNum): #Open class 2-x
         width = 7    
     )
 
+    saveExcelButton = tk.Button(
+        winClass,
+        text = "Save Excel",
+        command = lambda:ExcelToMiddle(classNum,"middle"),
+        height = 3,
+        width = 7
+
+    )
     pairText = tk.Label(
         winClass,
-        height = 40,
+        height = 37,
         width = 50,
         relief = tk.SOLID,
     )
@@ -287,8 +290,10 @@ def openClass(classNum): #Open class 2-x
 
 
     openListButton.pack()
+    openListButton.place(x=100,y=10)
      
     pairText.pack()
+    pairText.place(x=72,y=80)
 
     pairButton.pack()
     pairButton.place(x=250,y=700)
@@ -303,10 +308,13 @@ def openClass(classNum): #Open class 2-x
     resetButton.place(x=70,y=775)
 
     resetDatabase.pack()
-    resetDatabase.place(x=300,y=805,anchor="center")
+    resetDatabase.place(x=400,y=13)
 
     openExcelButton.pack()
-    openExcelButton.place(x=430, y=775)
+    openExcelButton.place(x=250, y=775)
+
+    saveExcelButton.pack()
+    saveExcelButton.place(x=430, y=775)
     
 
 
