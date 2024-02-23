@@ -19,14 +19,14 @@ def getTable(classNum, placement):
     """ This function reads 2D array in databases/<classNum>.txt
     
     Args:
-        classNum (str) : eg. "2-1"
+        classNum (int) : eg. "1"
         placement (str) : eg. "database"
         
     Returns:
         boolean[][] : 2d array
     """
-    databaseNum = classNum[-1]
-    f = open("./databases/"+placement+databaseNum+".txt", "r")
+    
+    f = open("./databases/"+placement+classNum+".txt", "r")
     line = f.readline()
     table = json.loads(line)
     f.close()
@@ -58,7 +58,7 @@ def newSet(classNum): #reset database
     """  
     numPeople = len(readName(classNum))
     ini = initial.inTable(numPeople)
-    f = open("./databases/middle"+classNum[-1]+".txt", "w")
+    f = open("./databases/middle"+classNum+".txt", "w")
     f.write(json.dumps(ini))
     f.close()
 
@@ -104,13 +104,13 @@ def checkValid(classNum, combo):
 #placement = middle,database
 def recordValidCombo(classNum, validCombo,placement):
     
-    databaseNum = classNum[-1]
-    f = open("./databases/"+placement+databaseNum+".txt", "r")
+    
+    f = open("./databases/"+placement+classNum+".txt", "r")
     line = f.readline()
     arrBegin = json.loads(line)
     todayRecord = pairing.record(validCombo,arrBegin)
     arrEnd = json.dumps(todayRecord)
-    g = open("./databases/"+placement+databaseNum+".txt", "w")
+    g = open("./databases/"+placement+classNum+".txt", "w")
     g.write(arrEnd)
     f.close()
     g.close()
@@ -125,21 +125,19 @@ def saveFile(fileName,theWidget):
 
 def reset(classNum):    
     size = len(readName(classNum))
-    databaseNum = classNum[-1]
     ini = initial.inTable(size)
-    f = open("./databases/database"+databaseNum+".txt", "w")
+    f = open("./databases/database"+classNum+".txt", "w")
     f.write(json.dumps(ini))
     f.close()
 
     with open("./databases/refreshCount.json",'r') as f:
         data=json.load(f)
-        data[databaseNum] = size-1
+        data[classNum] = size-1
     with open("./databases/refreshCount.json",'w') as g:  
         json.dump(data,g)
-    return data[databaseNum]
+    return data[classNum]
 
 def recordFinalPair(classNum): #Record middle to database without repeat
-    databaseNum = classNum[-1]
     middleTable = getTable(classNum, "middle")
     databaseTable = getTable(classNum, "database")
     for i in range(len(middleTable)):
@@ -149,20 +147,18 @@ def recordFinalPair(classNum): #Record middle to database without repeat
             elif(middleTable[i][j] == True and databaseTable[i][j] == True): #change: if already paired before
                 databaseTable[i][j] = middleTable[i][j]
 
-    f = open("./databases/database"+databaseNum+".txt", "w")
+    f = open("./databases/database"+classNum+".txt", "w")
     f.write(json.dumps(databaseTable))
     f.close()
   
     
 
 def readCount(classNum): #read how many turns until refresh
-    databaseNum = classNum[-1]
     with open("./databases/refreshCount.json",'r') as f:
         data=json.load(f)
-    return data[databaseNum]
+    return data[classNum]
 
 def changeCount(classNum): #countdown the turns
-    databaseNum = classNum[-1]
     
     if checkAllPaired(classNum) == True or readCount(classNum) == 0:
         reset(classNum)
@@ -173,7 +169,7 @@ def changeCount(classNum): #countdown the turns
 
     with open("./databases/refreshCount.json",'r') as f:
         data=json.load(f)
-        data[databaseNum] = num
+        data[classNum] = num
     with open("./databases/refreshCount.json",'w') as g:  
         json.dump(data,g)
     
@@ -204,11 +200,10 @@ def readEx(classNum):
 
 # display name to row 1 and colA (reade classes2-<#>.txt)
 def toExcel(classNum,placement): #跟middle相关的button连接
-    databaseNum=classNum[-1]
     f = open("./classes/class"+classNum+".txt", "r")
     stuName = [line.strip() for line in f.readlines() if line.strip()]
     f.close()
-    g = open("./databases/"+placement+databaseNum+".txt", "r")    
+    g = open("./databases/"+placement+classNum+".txt", "r")    
     line = g.readline()
     table = json.loads(line)
     print(table)
@@ -226,10 +221,10 @@ def toExcel(classNum,placement): #跟middle相关的button连接
 
 
 def ExcelToMiddle(classNum,placement):
-    databaseNum=classNum[-1]
+
     modified_array=readEx(classNum)
     # Overwrite the middle.txt file with the updated array
-    with open("./databases/"+placement+databaseNum+".txt", "w") as f:
+    with open("./databases/"+placement+classNum+".txt", "w") as f:
         json.dump(modified_array, f)
 
 
@@ -402,19 +397,19 @@ def openList(classNum): #open studentlist 2-x
 
 b1 = tk.Button(
     text = "1",
-    command = lambda:openClass("2-1")
+    command = lambda:openClass("1")
 )
 b2 = tk.Button(
     text = "2",
-    command = lambda:openClass("2-2")
+    command = lambda:openClass("2")
 )
 b3 = tk.Button(
     text = "3",
-    command = lambda:openClass("2-3")
+    command = lambda:openClass("3")
 )
 b4 = tk.Button(
     text = "4",
-    command = lambda:openClass("2-4")
+    command = lambda:openClass("4")
 )
 b1.pack()
 b2.pack()
