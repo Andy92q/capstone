@@ -3,6 +3,7 @@ import json
 
 
 def pairNow(numOfStudent): #random pairs (a,b)
+
     people = [[False for i in range(numOfStudent)] for j in range (numOfStudent)]
     selected = [False for i in range (len(people))]
     comb = []

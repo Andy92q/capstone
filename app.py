@@ -16,6 +16,15 @@ win.geometry("800x800")
 
 
 def getTable(classNum, placement):
+    """ This function reads 2D array in databases/<classNum>.txt
+    
+    Args:
+        classNum (str) : eg. "2-1"
+        placement (str) : eg. "database"
+        
+    Returns:
+        boolean[][] : 2d array
+    """
     databaseNum = classNum[-1]
     f = open("./databases/"+placement+databaseNum+".txt", "r")
     line = f.readline()
@@ -24,15 +33,29 @@ def getTable(classNum, placement):
     return table
 
 def readName(classNum):
+    """
+    read the names of the Student List
+    return names as string
+    """
     f = open("./classes/class"+classNum+".txt", "r")
     name = [line.strip()+"\n" for line in f.readlines() if line.strip()]
     return name
 
 def refresh(label,window,newText):
+    """
+    refresh the screen of names
+    """
     label.config(text=newText)
     window.update_idletasks()
 
-def newSet(classNum): #reset database    
+
+
+# UI
+def newSet(classNum): #reset database  
+    """
+    reset the 2D array in database
+    overwrite a new (empty, without anyone being paired) 2D array
+    """  
     numPeople = len(readName(classNum))
     ini = initial.inTable(numPeople)
     f = open("./databases/middle"+classNum[-1]+".txt", "w")
@@ -45,12 +68,18 @@ def newSet(classNum): #reset database
 
 
 def producePair(classNum): #random pair
+    """
+    1. Create new pair
+    2. if pairing did not satisfy, try again
+    3. record the array of satisfied combos to middle.txt
+    4. return the string of paired names
+    """
     nameList = readName(classNum)
     out = ""
     numPeople = len(nameList)
     comb = pairing.pairNow(numPeople) # comb = [[4,1],[7,10]....]
 
-    changeCount(classNum)
+    changeCount(classNum)#countdown -1
     while(pairing.isValid(comb,getTable(classNum,"database")) == False or pairing.isValid(comb,getTable(classNum,"middle")) == False):
         comb = pairing.pairNow(numPeople)
         print("try again")  
@@ -63,6 +92,9 @@ def producePair(classNum): #random pair
     return out
 
 def checkValid(classNum, combo):
+    """
+    Check if current combo have same pair as previous combos
+    """
     size = len(readName(classNum))
     print(size)
     if pairing.isValid(combo,pairing.inTable(size)) == True:
@@ -71,6 +103,7 @@ def checkValid(classNum, combo):
 
 #placement = middle,database
 def recordValidCombo(classNum, validCombo,placement):
+    
     databaseNum = classNum[-1]
     f = open("./databases/"+placement+databaseNum+".txt", "r")
     line = f.readline()

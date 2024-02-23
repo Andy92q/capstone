@@ -6,10 +6,8 @@ import platform
 def openExcelFile(classNum):
     # Specify the path to your Excel file
     excel_file = "./excel/"+classNum+".xlsx"
-
     # Use pandas to read the Excel file
     dp = pd.read_excel(excel_file)
-
     # Display the DataFrame (optional)
     print(dp)
 
