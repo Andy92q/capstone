@@ -4,6 +4,14 @@ import platform
 
 
 def openExcelFile(classNum):
+    """This function opens the excel file from python
+
+    Args:
+        classNum (str): eg. "1"
+
+    Returns:
+        excel opened  
+    """
     # Specify the path to your Excel file
     excel_file = "./excel/"+classNum+".xlsx"
     # Use pandas to read the Excel file

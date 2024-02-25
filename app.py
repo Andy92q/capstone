@@ -19,7 +19,7 @@ def getTable(classNum, placement):
     """ This function reads 2D array in databases/<classNum>.txt
     
     Args:
-        classNum (int) : eg. "1"
+        classNum (str) : eg. "1"
         placement (str) : eg. "database"
         
     Returns:
@@ -33,18 +33,28 @@ def getTable(classNum, placement):
     return table
 
 def readName(classNum):
-    """
-    read the names of the Student List
-    return names as string
+    """ This function reads array in class<classNum>.txt
+
+    Args:
+        classNum (str): eg. "1"
+
+    Returns:
+        string []: 1d array
+    
     """
     f = open("./classes/class"+classNum+".txt", "r")
     name = [line.strip()+"\n" for line in f.readlines() if line.strip()]
     return name
 
 def refresh(label,window,newText):
+    """This funciton refreshes the label
+    
+    Args:
+        label (tk.Label): 
+        window (tk.Tk()):
+        newText (String):
     """
-    refresh the screen of names
-    """
+
     label.config(text=newText)
     window.update_idletasks()
 
@@ -52,9 +62,13 @@ def refresh(label,window,newText):
 
 # UI
 def newSet(classNum): #reset database  
-    """
-    reset the 2D array in database
-    overwrite a new (empty, without anyone being paired) 2D array
+    """This function resets the 2D array in database
+    
+    Args:
+        classNum (str): eg. "1"
+    
+    Returns:
+        overwrite a new (empty, without anyone being paired) 2D array
     """  
     numPeople = len(readName(classNum))
     ini = initial.inTable(numPeople)
@@ -68,7 +82,14 @@ def newSet(classNum): #reset database
 
 
 def producePair(classNum): #random pair
-    """
+    """This function creates random pairs of people that haven't been previously paired
+
+    Args:
+        classNum (str): eg. "1"
+
+    Returns:
+        String: paired names in string
+
     1. Create new pair
     2. if pairing did not satisfy, try again
     3. record the array of satisfied combos to middle.txt
@@ -92,9 +113,16 @@ def producePair(classNum): #random pair
     return out
 
 def checkValid(classNum, combo):
+    """This function checks if current combo has any repetition from previous pairs
+    
+    Args:
+        classNum (str): eg. "1"
+        combo (2D array): eg. [[4,1],[7,10]....]
+
+    Returns:
+        boolean: true/false
     """
-    Check if current combo have same pair as previous combos
-    """
+
     size = len(readName(classNum))
     print(size)
     if pairing.isValid(combo,pairing.inTable(size)) == True:
@@ -103,7 +131,16 @@ def checkValid(classNum, combo):
 
 #placement = middle,database
 def recordValidCombo(classNum, validCombo,placement):
-    
+    """This function records combo into database<classNum>.txt or middle<classNum>.txt
+
+    Args:
+        classNum (str): eg. "1"
+        validCombo (2D array): eg. [[4,1],[7,10]....]
+        placement (str): eg. "database", "middle"
+
+    Returns:
+        add new pairings as True values
+    """
     
     f = open("./databases/"+placement+classNum+".txt", "r")
     line = f.readline()
@@ -117,6 +154,15 @@ def recordValidCombo(classNum, validCombo,placement):
 
 
 def saveFile(fileName,theWidget):
+    """This function saves the studentList from app to class<classNum>.txt
+    
+    Args:
+        fileName (str): eg. class<classNum>.txt
+        theWidget (tk.Text): 
+
+    Returns:
+        saves text from theWidget to class<classNum>.txt
+    """
     content = theWidget.get("1.0",tk.END) # from (0,0) --> (line 10000,char10000)
     name = [line.strip()+"\n" for line in content.splitlines() if line.strip()]
     content = ''.join(name)
@@ -124,6 +170,16 @@ def saveFile(fileName,theWidget):
     f.write(content)
 
 def reset(classNum):    
+    """This functions initializes the database and returns the initial number of turns left until automatic reset
+    
+    Args:
+        classNum (str): eg. "1"
+
+    Returns:
+        int: how many turns can be perfectly executed
+    
+    """
+
     size = len(readName(classNum))
     ini = initial.inTable(size)
     f = open("./databases/database"+classNum+".txt", "w")
@@ -138,6 +194,15 @@ def reset(classNum):
     return data[classNum]
 
 def recordFinalPair(classNum): #Record middle to database without repeat
+    """This function records the new pairs stored in middle to database
+
+    Args:
+        classNum (str): eg. "1"
+    
+    Returns:
+        add new pairings as True values to database   
+    """
+
     middleTable = getTable(classNum, "middle")
     databaseTable = getTable(classNum, "database")
     for i in range(len(middleTable)):
@@ -154,12 +219,28 @@ def recordFinalPair(classNum): #Record middle to database without repeat
     
 
 def readCount(classNum): #read how many turns until refresh
+    """This function reads how many turns of pairing are avaliable until automatic refresh
+    
+    Args:
+        classNum (str): eg. "1"
+
+    Returns:
+        int: how many turns remain to be executed theoretically
+    """
+
     with open("./databases/refreshCount.json",'r') as f:
         data=json.load(f)
     return data[classNum]
 
 def changeCount(classNum): #countdown the turns
+    """This function checks for how many turns can be done after current pair
+
+    Args:
+        classNum (str): eg. "1"
     
+    Returns:
+        int: how many turns remain to be executed theoretically
+    """
     if checkAllPaired(classNum) == True or readCount(classNum) == 0:
         reset(classNum)
         newSet(classNum)
@@ -177,6 +258,14 @@ def changeCount(classNum): #countdown the turns
     
     
 def checkAllPaired(classNum): #check if certain person has been paired for everyone
+    """This function checks if certain person has been paired for everyone
+
+    Args:
+        classNum (str): eg. "1"
+    
+    Returns:
+        boolean: True/False
+    """
     numPeople = len(readName(classNum))
     count = 0
     for i in range (numPeople):
@@ -190,6 +279,15 @@ def checkAllPaired(classNum): #check if certain person has been paired for every
 
 #Excel Functions
 def readEx(classNum):
+    """This function reads the excel spreadsheet True/False section
+
+    Args:
+        classNum (str): eg. "1"
+    
+    Returns:
+        boolean[][]: true/false    
+    """
+
     numPeople = len(readName(classNum))
     excel_file = "./excel/"+classNum+".xlsx"
     skip_cols=[0]#Skip column A
@@ -199,7 +297,17 @@ def readEx(classNum):
     return finalArray
 
 # display name to row 1 and colA (reade classes2-<#>.txt)
-def toExcel(classNum,placement): #跟middle相关的button连接
+def toExcel(classNum,placement): 
+    """This function overwrites middle<classNum>.txt file and student names to excel to create a table
+
+    Args:
+        classNum (str): eg. "1"
+        placement (str): eg. "database", "middle"
+    
+    Returns:
+        excel spreadsheet is filled with studnet names and true/false data
+    """
+
     f = open("./classes/class"+classNum+".txt", "r")
     stuName = [line.strip() for line in f.readlines() if line.strip()]
     f.close()
@@ -221,9 +329,17 @@ def toExcel(classNum,placement): #跟middle相关的button连接
 
 
 def ExcelToMiddle(classNum,placement):
+    """This function overwrites the middle.txt file with the updated array
+    
+    Args:
+        classNum (str): eg. "1"
+        placement (str): eg. "database", "middle"
+
+    Returns:
+        middle<classNum>.txt have new data from excel
+    """
 
     modified_array=readEx(classNum)
-    # Overwrite the middle.txt file with the updated array
     with open("./databases/"+placement+classNum+".txt", "w") as f:
         json.dump(modified_array, f)
 
@@ -423,3 +539,5 @@ b4.place(x=600, y=600)
 
 
 win.mainloop()
+
+print(type(reset("1")))
