@@ -10,7 +10,11 @@ Welcome to Walking Wednesday's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   app
+   countDown
+   ExcelFunctions
+   GUI
+   pairing
+   window
 
 Indices and tables
 ==================

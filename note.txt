@@ -1,0 +1,35 @@
+TButton: 
+TLabel:
+TCheckbutton: 
+
+TRadiobutton: 
+
+TEntry: A single-line text entry widget. Users can enter text.
+
+TCombobox: A combination of a drop-down list and a text entry field, allowing users either to select an item from the list or to enter a custom value.
+
+TSpinbox: 
+
+TScale: A widget that allows users to select a numerical value by moving a slider knob along a scale.
+
+TScrollbar
+
+TFrame
+
+TLabelframe
+
+TTreeview
+TProgressbar
+TSeparator
+
+
+=============================
+background
+foreground
+font ----> (font_family, size,.....) ---->font=("Arial", 10)
+borderwidth / borderWidth
+relif : bolder(solid, dotted)
+padding 
+width
+height
+justify : left, center , right

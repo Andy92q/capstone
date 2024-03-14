@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Walking Wednesday 1.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=8d563738"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="GUI.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="countDown.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <dl class="py function" id="module-ExcelFunctions">
+<dt class="sig sig-object py" id="ExcelFunctions.ExcelToMiddle">
+<span class="sig-prename descclassname"><span class="pre">ExcelFunctions.</span></span><span class="sig-name descname"><span class="pre">ExcelToMiddle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">placement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ExcelFunctions.ExcelToMiddle" title="Link to this definition">¶</a></dt>
+<dd><p>This function overwrites the middle.txt file with the updated array</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>classNum (str): eg. “1”
+placement (str): eg. “database”, “middle”</p>
+</dd>
+<dt>Returns:</dt><dd><p>middle&lt;classNum&gt;.txt have new data from excel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ExcelFunctions.MiddletoExcel">
+<span class="sig-prename descclassname"><span class="pre">ExcelFunctions.</span></span><span class="sig-name descname"><span class="pre">MiddletoExcel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">placement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ExcelFunctions.MiddletoExcel" title="Link to this definition">¶</a></dt>
+<dd><p>This function overwrites middle&lt;classNum&gt;.txt file and student names to excel to create a table</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>classNum (str): eg. “1”
+placement (str): eg. “database”, “middle”</p>
+</dd>
+<dt>Returns:</dt><dd><p>excel spreadsheet is filled with studnet names and true/false data
+display name to row 1 and colA (reade classes2-&lt;#&gt;.txt)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ExcelFunctions.openExcelFile">
+<span class="sig-prename descclassname"><span class="pre">ExcelFunctions.</span></span><span class="sig-name descname"><span class="pre">openExcelFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ExcelFunctions.openExcelFile" title="Link to this definition">¶</a></dt>
+<dd><p>This function opens the excel file from python</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>classNum (str): eg. “1”</p>
+</dd>
+<dt>Returns:</dt><dd><p>excel opened</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ExcelFunctions.readExcel">
+<span class="sig-prename descclassname"><span class="pre">ExcelFunctions.</span></span><span class="sig-name descname"><span class="pre">readExcel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ExcelFunctions.readExcel" title="Link to this definition">¶</a></dt>
+<dd><p>This function reads the excel spreadsheet True/False section</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>classNum (str): eg. “1”</p>
+</dd>
+<dt>Returns:</dt><dd><p>boolean[][]: true/false</p>
+</dd>
+</dl>
+</dd></dl>
+
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Walking Wednesday</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="countDown.html"><code class="docutils literal notranslate"><span class="pre">changeCountdownNumber()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="countDown.html#countDown.checkAllPaired"><code class="docutils literal notranslate"><span class="pre">checkAllPaired()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="countDown.html#countDown.readCountdownNumber"><code class="docutils literal notranslate"><span class="pre">readCountdownNumber()</span></code></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">ExcelToMiddle()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#ExcelFunctions.MiddletoExcel"><code class="docutils literal notranslate"><span class="pre">MiddletoExcel()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#ExcelFunctions.openExcelFile"><code class="docutils literal notranslate"><span class="pre">openExcelFile()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#ExcelFunctions.readExcel"><code class="docutils literal notranslate"><span class="pre">readExcel()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="GUI.html"><code class="docutils literal notranslate"><span class="pre">MiddleToDatabase()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="GUI.html#GUI.getTable"><code class="docutils literal notranslate"><span class="pre">getTable()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="GUI.html#GUI.readStudentName"><code class="docutils literal notranslate"><span class="pre">readStudentName()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="GUI.html#GUI.refreshPairingLabel"><code class="docutils literal notranslate"><span class="pre">refreshPairingLabel()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="GUI.html#GUI.resetDatabase"><code class="docutils literal notranslate"><span class="pre">resetDatabase()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="GUI.html#GUI.resetMiddle"><code class="docutils literal notranslate"><span class="pre">resetMiddle()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="GUI.html#GUI.saveStudentList"><code class="docutils literal notranslate"><span class="pre">saveStudentList()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="pairing.html"><code class="docutils literal notranslate"><span class="pre">checkValid()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="pairing.html#pairing.initializeTable"><code class="docutils literal notranslate"><span class="pre">initializeTable()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="pairing.html#pairing.isValid"><code class="docutils literal notranslate"><span class="pre">isValid()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="pairing.html#pairing.pairNow"><code class="docutils literal notranslate"><span class="pre">pairNow()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="pairing.html#pairing.producePair"><code class="docutils literal notranslate"><span class="pre">producePair()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="pairing.html#pairing.record"><code class="docutils literal notranslate"><span class="pre">record()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="pairing.html#pairing.recordValidCombo"><code class="docutils literal notranslate"><span class="pre">recordValidCombo()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="window.html"><code class="docutils literal notranslate"><span class="pre">openClass()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="window.html#window.openList"><code class="docutils literal notranslate"><span class="pre">openList()</span></code></a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="countDown.html" title="previous chapter">&lt;no title&gt;</a></li>
+      <li>Next: <a href="GUI.html" title="next chapter">&lt;no title&gt;</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Andy Wang.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/ExcelFunctions.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

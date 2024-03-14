@@ -9,7 +9,7 @@ def initializeTable(size):
     Args:
         size (int): eg. 30
     
-    Return:
+    Returns:
         boolean[][]: True/False
     """
     table = [[False for i in range (size)] for j in range (size)]

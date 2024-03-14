@@ -31,119 +31,7 @@
 
           <div class="body" role="main">
             
-  <dl class="py function" id="module-app">
-<dt class="sig sig-object py" id="app.ExcelToMiddle">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">ExcelToMiddle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">placement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.ExcelToMiddle" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="app.changeCount">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">changeCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.changeCount" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="app.checkAllPaired">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">checkAllPaired</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.checkAllPaired" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="app.checkValid">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">checkValid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">combo</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.checkValid" title="Link to this definition">¶</a></dt>
-<dd><p>Check if current combo have same pair as previous combos</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="app.getTable">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">getTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">placement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.getTable" title="Link to this definition">¶</a></dt>
-<dd><p>This function reads 2D array in databases/&lt;classNum&gt;.txt
-Args:</p>
-<blockquote>
-<div><p>classNum (str) : eg. “2-1”
-placement (str) : eg. “database”</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Returns:</dt><dd><p>boolean[][] : 2d array</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="app.newSet">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">newSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.newSet" title="Link to this definition">¶</a></dt>
-<dd><p>reset the 2D array in database
-overwrite a new (empty, without anyone being paired) 2D array</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="app.openClass">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">openClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.openClass" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="app.openList">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">openList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.openList" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="app.producePair">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">producePair</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.producePair" title="Link to this definition">¶</a></dt>
-<dd><ol class="arabic simple">
-<li><p>Create new pair</p></li>
-<li><p>if pairing did not satisfy, try again</p></li>
-<li><p>record the array of satisfied combos to middle.txt</p></li>
-<li><p>return the string of paired names</p></li>
-</ol>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="app.readCount">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">readCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.readCount" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="app.readEx">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">readEx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.readEx" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="app.readName">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">readName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.readName" title="Link to this definition">¶</a></dt>
-<dd><p>read the names of the Student List
-return names as string</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="app.recordFinalPair">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">recordFinalPair</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.recordFinalPair" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="app.recordValidCombo">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">recordValidCombo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validCombo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">placement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.recordValidCombo" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="app.refresh">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">refresh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newText</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.refresh" title="Link to this definition">¶</a></dt>
-<dd><p>refresh the screen of names</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="app.reset">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.reset" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="app.saveFile">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">saveFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theWidget</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.saveFile" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="app.toExcel">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">toExcel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">placement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.toExcel" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-
+  <span class="target" id="module-app"></span>
 
           </div>
           
@@ -161,27 +49,6 @@ return names as string</p>
 
 
 <h3>Navigation</h3>
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">ExcelToMiddle()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#app.changeCount"><code class="docutils literal notranslate"><span class="pre">changeCount()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#app.checkAllPaired"><code class="docutils literal notranslate"><span class="pre">checkAllPaired()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#app.checkValid"><code class="docutils literal notranslate"><span class="pre">checkValid()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#app.getTable"><code class="docutils literal notranslate"><span class="pre">getTable()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#app.newSet"><code class="docutils literal notranslate"><span class="pre">newSet()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#app.openClass"><code class="docutils literal notranslate"><span class="pre">openClass()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#app.openList"><code class="docutils literal notranslate"><span class="pre">openList()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#app.producePair"><code class="docutils literal notranslate"><span class="pre">producePair()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#app.readCount"><code class="docutils literal notranslate"><span class="pre">readCount()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#app.readEx"><code class="docutils literal notranslate"><span class="pre">readEx()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#app.readName"><code class="docutils literal notranslate"><span class="pre">readName()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#app.recordFinalPair"><code class="docutils literal notranslate"><span class="pre">recordFinalPair()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#app.recordValidCombo"><code class="docutils literal notranslate"><span class="pre">recordValidCombo()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#app.refresh"><code class="docutils literal notranslate"><span class="pre">refresh()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#app.reset"><code class="docutils literal notranslate"><span class="pre">reset()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#app.saveFile"><code class="docutils literal notranslate"><span class="pre">saveFile()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#app.toExcel"><code class="docutils literal notranslate"><span class="pre">toExcel()</span></code></a></li>
-</ul>
 
 <div class="relations">
 <h3>Related Topics</h3>

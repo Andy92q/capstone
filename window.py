@@ -123,7 +123,7 @@ def openClass(classNum): #Open class x
 
 
 
-def openList(classNum): #open studentlist 2-x
+def openList(classNum): #open studentlist x
     winList = tk.Tk()
     winList.geometry("400x650")
     winList.title("class"+ classNum+"List")
