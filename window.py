@@ -67,14 +67,20 @@ def openClass(classNum): #Open class x
         width = 7    
     )
 
+    """
+
     saveExcelButton = tk.Button(
         winClass,
         text = "Save Excel",
         command = lambda:ExcelFunctions.ExcelToMiddle(classNum,"middle"),
         height = 3,
         width = 7
-
     )
+
+    """
+
+
+    
     pairText = tk.Label(
         winClass,
         height = 37,
@@ -115,8 +121,12 @@ def openClass(classNum): #Open class x
     openExcelButton.pack()
     openExcelButton.place(x=250, y=775)
 
+"""
     saveExcelButton.pack()
     saveExcelButton.place(x=430, y=775)
+    
+
+"""
     
 
 
@@ -132,8 +142,8 @@ def openList(classNum): #open studentlist x
     #myfont=tkinter.font.Font(family="Comic Sans MS", size=666)
     textArea=tk.Text(
         winList,
-        height=40, #40彳亍
-        width=20,  #20字
+        height=40, 
+        width=20,  
         bg = "skyblue",
         bd = 2,
         relief=tk.SOLID,
