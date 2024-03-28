@@ -4,23 +4,39 @@ import countDown
 import GUI
 
 import tkinter as tk
-
+from tkinter import ttk
+from tkinter import *
+import ttkbootstrap as tb
+from ttkbootstrap.constants import *
 
 def openClass(classNum): #Open class x
-    winClass = tk.Tk()
-    winClass.geometry("600x850")
+
+    winClass = Toplevel()
+    winClass.geometry("600x700") #48
     winClass.title("class"+ classNum)
 
+    studentList_style = tb.Style()
+    studentList_style.configure("warning.Outline.TButton", font = ("Helvetica", 20))
+    pairing_style = tb.Style()
+    pairing_style.configure("primary.Outline.TButton", font = ("Helvetica", 20))
+
+    reset_style = tb.Style()
+    reset_style.configure("danger.Outline.TButton", font = ("Helvetica", 20))
+
+    excel_style = tb.Style()
+    excel_style.configure("success.Outline.TButton", font = ("Helvetica", 20))
     
-    openListButton = tk.Button(
+    openListButton = tb.Button(
         winClass,
-        text = "classList",
+        text = "Classlist",
         command = lambda:openList(classNum),
-        width = 7,
-        height = 3
-        )
+        style = "warning.Outline.TButton",
+        width = 21,
+        padding = 10
+    )
     
-    pairButton = tk.Button(
+
+    pairButton = tb.Button(
         winClass,
         text = "New Pair",
         command =lambda:[
@@ -28,119 +44,100 @@ def openClass(classNum): #Open class x
             ExcelFunctions.MiddletoExcel(classNum,"middle"),   
             resetDatabase.config(text = countDown.readCountdownNumber(classNum))        
         ],
-        height = 3,
-        width = 7,
+        style = "primary.Outline.TButton",
+        width = 21,
+        padding = 10
     )
-
-    resetButton = tk.Button(
+    
+    resetButton = tb.Button(
         winClass,
-        text = "Reset\nMainDrive",
+        text = "Reset MainDrive",
         command = lambda:[
             GUI.resetDatabase(classNum),
             pairText.config(text=""),
             resetDatabase.config(text=GUI.resetDatabase(classNum))],
-        height = 3,
-        width = 7,
+        style = "danger.Outline.TButton",
+        width = 21,
+        padding = 10
     )
-
+    
     #record excel to middle and database
-    recordButton = tk.Button(
+    recordButton = tb.Button(
         winClass,
-        text = "Record\nCurrent",
+        text = "Record Current",
         command = lambda:[ExcelFunctions.ExcelToMiddle(classNum,"middle"),GUI.MiddleToDatabase(classNum)],
-        height = 3,
-        width = 7
+        style = "primary.Outline.TButton",
+        width = 21,
+        padding = 10
     )
-
-    newSetButton = tk.Button(
+    
+    newSetButton = tb.Button(
         winClass,
         text = "New Set",
         command = lambda:[GUI.resetMiddle(classNum),ExcelFunctions.MiddletoExcel(classNum,"middle")],
-        height = 3,
-        width = 7
+        style = "primary.Outline.TButton",
+        width = 21,
+        padding = 10
     )
 
-    openExcelButton = tk.Button(
+    openExcelButton = tb.Button(
         winClass,
         text = "Open Excel",
         command = lambda:ExcelFunctions.openExcelFile(classNum),
-        height = 3,
-        width = 7    
+        style = "success.Outline.TButton",
+        width = 21,
+        padding = 10
     )
-
-    """
-
-    saveExcelButton = tk.Button(
-        winClass,
-        text = "Save Excel",
-        command = lambda:ExcelFunctions.ExcelToMiddle(classNum,"middle"),
-        height = 3,
-        width = 7
-    )
-
-    """
 
 
     
     pairText = tk.Label(
         winClass,
-        height = 37,
-        width = 50,
+        height = 27,
+        width = 62,
         relief = tk.SOLID,
     )
     
-    resetDatabase = tk.Label(
+    resetDatabase = tb.Label(
         winClass,
-        height = 3,
-        width = 10,   
-        relief = tk.SOLID,    
-        text = countDown.readCountdownNumber(classNum)
+        relief = tk.SOLID,        
+        text = countDown.readCountdownNumber(classNum),
+        bootstyle = "inverse-light",
+        padding = [280,10]    
     )
-
-
+    
+    
     openListButton.pack()
-    openListButton.place(x=100,y=10)
-     
-    pairText.pack()
-    pairText.place(x=72,y=80)
-
+    openListButton.place(x = 443.75, y = 660, anchor = CENTER)
     pairButton.pack()
-    pairButton.place(x=250,y=700)
-
-    recordButton.pack()
-    recordButton.place(x=430,y=700)
-
-    newSetButton.pack()
-    newSetButton.place(x=70,y=700)
-
+    pairButton.place(x = 156.25, y = 540, anchor = CENTER)
     resetButton.pack()
-    resetButton.place(x=70,y=775)
-
-    resetDatabase.pack()
-    resetDatabase.place(x=400,y=13)
-
+    resetButton.place(x = 443.75, y = 600, anchor = CENTER)
+    recordButton.pack()
+    recordButton.place(x = 156.25, y = 600, anchor = CENTER)
+    newSetButton.pack()
+    newSetButton.place(x = 443.75, y = 540, anchor = CENTER)
     openExcelButton.pack()
-    openExcelButton.place(x=250, y=775)
+    openExcelButton.place(x = 156.25, y = 660, anchor = CENTER)
 
-"""
-    saveExcelButton.pack()
-    saveExcelButton.place(x=430, y=775)
+
+
+    pairText.pack()
+    pairText.place(x = 300, y = 280, anchor = CENTER)
+    resetDatabase.pack()
+    resetDatabase.place(x = 300, y = 30, anchor = CENTER)
+
     
-
-"""
-    
-
 
 
 
 
 def openList(classNum): #open studentlist x
-    winList = tk.Tk()
+    winList = Toplevel()
     winList.geometry("400x650")
     winList.title("class"+ classNum+"List")
 
     line = GUI.readStudentName(classNum)
-    #myfont=tkinter.font.Font(family="Comic Sans MS", size=666)
     textArea=tk.Text(
         winList,
         height=40, 
@@ -149,22 +146,19 @@ def openList(classNum): #open studentlist x
         bd = 2,
         relief=tk.SOLID,
 
-        #font = myfont
     )
 
-    saveButton = tk.Button(
+    saveButton = tb.Button(
         winList,
         text = "save",
         command = lambda:GUI.saveStudentList("./classes/class"+classNum+".txt", textArea),
-        height = 2,
-        width = 3
     )
-    cancelButton = tk.Button(
+
+    cancelButton = tb.Button(
         winList,
         text = "cancel",
         command = lambda:winList.destroy(),
-        height = 2,
-        width = 3
+
     )
     
     for i in range (len(line)):

@@ -2,10 +2,9 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import *
-import window
+import george
 
-def sayHello():
-    print("hellooooo")
+
 
 win = tk.Tk()
 win.configure(bg = "white")
@@ -24,26 +23,26 @@ style.configure("classButton.TButton",
 b1 = ttk.Button(
     text = "1",
     style = "classButton.TButton",
-    command = lambda:window.openClass("1")
+    command = lambda:george.openClass("1")
 )
 
 
 b2 = ttk.Button(
     text = "2",
     style = "classButton.TButton",
-    command = lambda:window.openClass("2")
+    command = lambda:george.openClass("2")
 )
 
             
 b3 = ttk.Button(
     text = "3",
     style = "classButton.TButton",
-    command = lambda:window.openClass("3")
+    command = lambda:george.openClass("3")
 )
 b4 = ttk.Button(
     text = "4",
      style = "classButton.TButton",
-    command = lambda:window.openClass("4")
+    command = lambda:george.openClass("4")
 )
 b1.pack()
 b2.pack()
@@ -55,24 +54,4 @@ b3.place(x=200, y=600,anchor=CENTER)
 b4.place(x=600, y=600,anchor=CENTER)
 
 
-
-# l1 = tk.Label(text="Test", fg="black", bg="white")
-# l2 = tk.Label(text="Test", fg="black", bg="white")
-
-
-# style = ttk.Style()
-# style.configure("studentName.TLabel", fg="blue", background="white",)
-# l1 = ttk.Label(text="Test", style="hello.TLabel")
-# l2 = ttk.Label(text="Test", style="hello.TLabel")
-
-
-
-
-
-
-
-# l1.pack()
-# l2.pack()
-# l1.place(x=200, y=200)
-# l2.place(x=600, y=200)
 win.mainloop()

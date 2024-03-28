@@ -2,6 +2,7 @@ git add .
 git commit -m "message"
 git push
 
+git checkout .
 
 1. 整理代码
 
