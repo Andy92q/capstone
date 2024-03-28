@@ -1,7 +1,8 @@
+import tkinter as tk
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 
-root = ttk.Window()
+root = tk.Tk()
 
 def add(a,b):
     print(int(a)+int(b))
@@ -14,7 +15,22 @@ style.configure('MyButton.TButton',background="#ff0000", font=('Helvetica',30))
 
 
 
-b1 = ttk.Button(root, text="Button 1", bootstyle=SUCCESS,  style="MyButton.TButton",command = lambda:add(l1.cget('text'),l2.cget("text")))
+b1 = ttk.Button(
+    root,
+    text="Button 1", 
+    bootstyle=SUCCESS,  
+    style="MyButton.TButton",
+    command = lambda:add(l1.cget('text'),l2.cget("text"))
+)
+'''
+root, 
+text="Button 1", 
+bootstyle=SUCCESS,  
+style="MyButton.TButton",
+command = lambda:add(l1.cget('text'),l2.cget("text"))
+'''
+    
+    
 b1.pack(side=LEFT, padx=5, pady=10)
 
 

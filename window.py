@@ -5,6 +5,7 @@ import GUI
 
 import tkinter as tk
 
+
 def openClass(classNum): #Open class x
     winClass = tk.Tk()
     winClass.geometry("600x850")
@@ -15,8 +16,8 @@ def openClass(classNum): #Open class x
         winClass,
         text = "classList",
         command = lambda:openList(classNum),
-        height = 3,
-        width = 7
+        width = 7,
+        height = 3
         )
     
     pairButton = tk.Button(
@@ -174,3 +175,5 @@ def openList(classNum): #open studentlist x
     textArea.pack()
     saveButton.pack()
     cancelButton.pack()
+
+
