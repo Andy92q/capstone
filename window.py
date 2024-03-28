@@ -4,7 +4,6 @@ import countDown
 import GUI
 
 import tkinter as tk
-from tkinter import ttk
 from tkinter import *
 import ttkbootstrap as tb
 from ttkbootstrap.constants import *
@@ -134,15 +133,21 @@ def openClass(classNum): #Open class x
 
 def openList(classNum): #open studentlist x
     winList = Toplevel()
-    winList.geometry("400x650")
+    winList.geometry("400x500")
     winList.title("class"+ classNum+"List")
+
+    cancel_style = tb.Style()
+    cancel_style.configure("danger.Outline.TButton", font = ("Helvetica", 20))
+
+    saving_style = tb.Style()
+    saving_style.configure("success.Outline.TButton", font = ("Helvetica", 20))
+
 
     line = GUI.readStudentName(classNum)
     textArea=tk.Text(
         winList,
-        height=40, 
-        width=20,  
-        bg = "skyblue",
+        height=25, 
+        width=38,  
         bd = 2,
         relief=tk.SOLID,
 
@@ -150,14 +155,20 @@ def openList(classNum): #open studentlist x
 
     saveButton = tb.Button(
         winList,
-        text = "save",
+        text = "Save",
         command = lambda:GUI.saveStudentList("./classes/class"+classNum+".txt", textArea),
+        style = "success.Outline.TButton",
+        width = 13,
+        padding = 10
     )
 
     cancelButton = tb.Button(
         winList,
-        text = "cancel",
+        text = "Cancel",
         command = lambda:winList.destroy(),
+        style = "danger.Outline.TButton",
+        width = 13,
+        padding = 10
 
     )
     
@@ -167,7 +178,10 @@ def openList(classNum): #open studentlist x
     
     
     textArea.pack()
+    textArea.place(x = 200, y = 220, anchor = CENTER)
     saveButton.pack()
+    saveButton.place(x = 106.25, y = 460, anchor = CENTER)
     cancelButton.pack()
+    cancelButton.place(x = 293.75, y = 460, anchor = CENTER)
 
 
