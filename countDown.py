@@ -4,6 +4,7 @@ import os
 
 current_dir = os.path.dirname(__file__)
 
+
 def readCountdownNumber(classNum):  # readCount
     """This function reads how many turns of pairing are avaliable until automatic refresh
 
@@ -14,7 +15,7 @@ def readCountdownNumber(classNum):  # readCount
         int: how many turns remain to be executed theoretically
     """
 
-    with open(current_dir+"/databases/refreshCount.json", "r") as f:
+    with open(current_dir + "/databases/refreshCount.json", "r") as f:
         data = json.load(f)
     return data[classNum]
 
@@ -35,10 +36,10 @@ def changeCountdownNumber(classNum):  # changeCount
     else:
         num = readCountdownNumber(classNum) - 1
 
-    with open(current_dir+"/databases/refreshCount.json", "r") as f:
+    with open(current_dir + "/databases/refreshCount.json", "r") as f:
         data = json.load(f)
         data[classNum] = num
-    with open(current_dir+"/databases/refreshCount.json", "w") as g:
+    with open(current_dir + "/databases/refreshCount.json", "w") as g:
         json.dump(data, g)
 
     return num

@@ -91,12 +91,12 @@ def recordValidCombo(classNum, validCombo, placement):
         add new pairings as True values
     """
 
-    f = open(current_dir+"/databases/" + placement + classNum + ".txt", "r")
+    f = open(current_dir + "/databases/" + placement + classNum + ".txt", "r")
     line = f.readline()
     arrBegin = json.loads(line)
     todayRecord = record(validCombo, arrBegin)
     arrEnd = json.dumps(todayRecord)
-    g = open(current_dir+"/databases/" + placement + classNum + ".txt", "w")
+    g = open(current_dir + "/databases/" + placement + classNum + ".txt", "w")
     g.write(arrEnd)
     f.close()
     g.close()

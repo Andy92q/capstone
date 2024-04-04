@@ -7,6 +7,7 @@ import os
 
 current_dir = os.path.dirname(__file__)
 
+
 def readExcel(classNum):  # readEx
     """This function reads the excel spreadsheet True/False section
 
@@ -18,7 +19,7 @@ def readExcel(classNum):  # readEx
     """
 
     numPeople = len(GUI.readStudentName(classNum))
-    excel_file = current_dir+"/excel/" + classNum + ".xlsx"
+    excel_file = current_dir + "/excel/" + classNum + ".xlsx"
     skip_cols = [0]  # Skip column A
     keep_cols = [i for i in range(numPeople + 1) if i not in skip_cols]
     df = pd.read_excel(excel_file, skiprows=0, usecols=keep_cols)
@@ -36,7 +37,7 @@ def openExcelFile(classNum):
         excel opened
     """
     # Specify the path to your Excel file
-    excel_file = current_dir+"/excel/" + classNum + ".xlsx"
+    excel_file = current_dir + "/excel/" + classNum + ".xlsx"
     # Use pandas to read the Excel file
     dp = pd.read_excel(excel_file)
     # Display the DataFrame (optional)
@@ -69,10 +70,10 @@ def MiddletoExcel(classNum, placement):  # toExcel
         display name to row 1 and colA (reade classes2-<#>.txt)
     """
 
-    f = open(current_dir+"/classes/class" + classNum + ".txt", "r")
+    f = open(current_dir + "/classes/class" + classNum + ".txt", "r")
     stuName = [line.strip() for line in f.readlines() if line.strip()]
     f.close()
-    g = open(current_dir+"/databases/" + placement + classNum + ".txt", "r")
+    g = open(current_dir + "/databases/" + placement + classNum + ".txt", "r")
     line = g.readline()
     table = json.loads(line)
     print(table)
@@ -81,7 +82,7 @@ def MiddletoExcel(classNum, placement):  # toExcel
     data = table
     df = pd.DataFrame(data, index=stuName, columns=stuName)
     print(df)
-    excel_file = current_dir+"/excel/" + classNum + ".xlsx"
+    excel_file = current_dir + "/excel/" + classNum + ".xlsx"
     df.to_excel(excel_file, index=True)
 
     # Display the path to the saved Excel file
@@ -101,5 +102,5 @@ def ExcelToMiddle(classNum, placement):
     """
 
     modified_array = readExcel(classNum)
-    with open(current_dir+"/databases/" + placement + classNum + ".txt", "w") as f:
+    with open(current_dir + "/databases/" + placement + classNum + ".txt", "w") as f:
         json.dump(modified_array, f)

@@ -5,6 +5,7 @@ import os
 
 current_dir = os.path.dirname(__file__)
 
+
 def getTable(classNum, placement):
     """This function reads 2D array in databases/<classNum>.txt
 
@@ -16,7 +17,7 @@ def getTable(classNum, placement):
         boolean[][] : 2d array
     """
 
-    f = open(current_dir+"/databases/" + placement + classNum + ".txt", "r")
+    f = open(current_dir + "/databases/" + placement + classNum + ".txt", "r")
     line = f.readline()
     table = json.loads(line)
     f.close()
@@ -33,7 +34,7 @@ def readStudentName(classNum):  # readName
         string []: 1d array
 
     """
-    f = open(current_dir+"/classes/class" + classNum + ".txt", "r")
+    f = open(current_dir + "/classes/class" + classNum + ".txt", "r")
     name = [line.strip() + "\n" for line in f.readlines() if line.strip()]
     return name
 
@@ -62,7 +63,7 @@ def resetMiddle(classNum):  # newSet
     """
     numPeople = len(readStudentName(classNum))
     ini = pairing.initializeTable(numPeople)
-    f = open(current_dir+"/databases/middle" + classNum + ".txt", "w")
+    f = open(current_dir + "/databases/middle" + classNum + ".txt", "w")
     f.write(json.dumps(ini))
     f.close()
 
@@ -97,14 +98,14 @@ def resetDatabase(classNum):  # reset
 
     size = len(readStudentName(classNum))
     ini = pairing.initializeTable(size)
-    f = open(current_dir+"/databases/database" + classNum + ".txt", "w")
+    f = open(current_dir + "/databases/database" + classNum + ".txt", "w")
     f.write(json.dumps(ini))
     f.close()
 
-    with open(current_dir+"/databases/refreshCount.json", "r") as f:
+    with open(current_dir + "/databases/refreshCount.json", "r") as f:
         data = json.load(f)
         data[classNum] = size - 1
-    with open(current_dir+"/databases/refreshCount.json", "w") as g:
+    with open(current_dir + "/databases/refreshCount.json", "w") as g:
         json.dump(data, g)
     return data[classNum]
 
@@ -130,6 +131,6 @@ def MiddleToDatabase(classNum):  # RecordFinalPair
             ):  # change: if already paired before
                 databaseTable[i][j] = middleTable[i][j]
 
-    f = open(current_dir+"/databases/database" + classNum + ".txt", "w")
+    f = open(current_dir + "/databases/database" + classNum + ".txt", "w")
     f.write(json.dumps(databaseTable))
     f.close()
