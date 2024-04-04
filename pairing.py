@@ -2,6 +2,9 @@ import random
 import json
 import GUI
 import countDown
+import os
+
+current_dir = os.path.dirname(__file__)
 
 
 def initializeTable(size):
@@ -88,12 +91,12 @@ def recordValidCombo(classNum, validCombo, placement):
         add new pairings as True values
     """
 
-    f = open("./databases/" + placement + classNum + ".txt", "r")
+    f = open(current_dir+"/databases/" + placement + classNum + ".txt", "r")
     line = f.readline()
     arrBegin = json.loads(line)
     todayRecord = record(validCombo, arrBegin)
     arrEnd = json.dumps(todayRecord)
-    g = open("./databases/" + placement + classNum + ".txt", "w")
+    g = open(current_dir+"/databases/" + placement + classNum + ".txt", "w")
     g.write(arrEnd)
     f.close()
     g.close()

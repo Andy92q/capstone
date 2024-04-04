@@ -7,6 +7,10 @@ import tkinter as tk
 from tkinter import *
 import ttkbootstrap as tb
 from ttkbootstrap.constants import *
+import os
+
+current_dir = os.path.dirname(__file__)
+
 
 
 def openClass(classNum):  # Open class x
@@ -153,7 +157,7 @@ def openList(classNum):  # open studentlist x
         winList,
         text="Save",
         command=lambda: GUI.saveStudentList(
-            "./classes/class" + classNum + ".txt", textArea
+            current_dir+"/classes/class" + classNum + ".txt", textArea
         ),
         style="success.Outline.TButton",
         width=13,
