@@ -9,11 +9,19 @@ from setuptools import setup
 
 APP = ["app.py"]
 DATA_FILES = []
-OPTIONS = {}
+OPTIONS = {
+    'argv_emulation': True,
+    'iconfile': 'app.icns'
+}
 
 setup(
     app=APP,
     data_files=DATA_FILES,
+    install_requires=[
+        
+        'PySide6',
+        
+    ],
     options={
         "py2app": OPTIONS,
         "py2app": {
@@ -26,6 +34,7 @@ setup(
             ],
         "resources": ["./databases/*","./classes/*","./excel/*"]
         },
+        
     },
     setup_requires=["py2app"],
 )
