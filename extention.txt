@@ -3,9 +3,3 @@ git commit -m "message"
 git push
 
 git checkout .
-
-1. 整理代码
-
-
-Pair-->Middle-->Excel-->Middle-->database
-2024/02/03 - do not spam click or it will crash the system
