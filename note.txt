@@ -1,3 +1,9 @@
+git add .
+git commit -m "message"
+git push
+
+git checkout .
+
 TButton: 
 TLabel:
 TCheckbutton: 
@@ -33,3 +39,6 @@ padding
 width
 height
 justify : left, center , right
+
+
+

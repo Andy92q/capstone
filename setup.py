@@ -10,33 +10,24 @@ from setuptools import setup
 APP = ["app.py"]
 DATA_FILES = []
 OPTIONS = {
-    'argv_emulation': True,
-    'iconfile': 'app.icns'
+    'includes': [
+        "GUI.py",
+        "countDown.py",
+        "ExcelFunctions.py",
+        "pairing.py",
+        "window.py",
+    ],
+    'resources': ["./databases/*", "./classes/*", "./excel/*"],
+    "iconfile": "app.icns"
 }
 
 setup(
     app=APP,
     data_files=DATA_FILES,
     install_requires=[
-        
         'PySide6',
-        
     ],
-    options={
-        "py2app": OPTIONS,
-        "py2app": {
-            "includes": [ 
-                "GUI.py",
-                "countDown.py",
-                "ExcelFunctions.py",
-                "pairing.py",
-                "window.py",
-            ],
-        "resources": ["./databases/*","./classes/*","./excel/*"]
-        },
-        
-    },
+    options={'py2app':OPTIONS},
     setup_requires=["py2app"],
 )
-
 
