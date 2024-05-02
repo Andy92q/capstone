@@ -1,1 +1,18 @@
 /* This file intentionally left blank. */
+.searchformwrapper{
+    margin-bottom: 30px;
+}
+
+.sphinxsidebarwrapper{
+    background-color: gray;
+   
+}
+.sphinxsidebarwrapper * {
+    color: white;
+}
+.search input{
+    color: black;
+}
+.toctree-l1 .pre:hover{
+    color:black;
+}
